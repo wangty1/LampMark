@@ -1,0 +1,18 @@
+{
+  "img_size": 128,
+  "sep_model": true,
+  "encoder_channels": 64,
+  "encoder_blocks": 3,
+  "decoder_channels": 64,
+  "decoder_blocks": 1,
+  "watermark_length": 64,
+  "batch_size": 256,
+  "manipulation_mode": "common",
+  "manipulation_layers": [
+    "Jpeg(50)"
+  ],
+  "img_path": "./image_data/dataset_celeba_hq",
+  "wm_path": "./watermark_data/celeba_hq",
+  "weight_path": "./weights/128_64",
+  "epoch": 50
+}

@@ -1,0 +1,28 @@
+{
+  "img_size": 128,
+  "sep_model": false,
+  "encoder_channels": 64,
+  "encoder_blocks": 3,
+  "decoder_channels": 64,
+  "decoder_blocks": 1,
+  "discriminator_channels": 64,
+  "discriminator_blocks": 3,
+  "watermark_length": 64,
+  "epochs": 300,
+  "batch_size": 512,
+  "lr": 2e-2,
+  "manipulation_mode": "common",
+  "manipulation_layers": [
+    "Combined([Identity(),Jpeg(50),JpegMask(50)])"
+  ],
+  "encoder_weight": 1,
+  "decoder_weight": 12,
+  "discriminator_weight": 0.01,
+  "img_path": "./image_data/dataset_celeba_hq",
+  "wm_path": "./watermark_data/celeba_hq",
+  "weight_path": "./weights/128_64",
+  "do_validation": false,
+  "save_img_nums": 2,
+  "is_continue": false,
+  "current_epoch": 0
+}

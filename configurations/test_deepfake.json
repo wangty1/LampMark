@@ -1,0 +1,21 @@
+{
+  "img_size": 128,
+  "encoder_channels": 64,
+  "encoder_blocks": 3,
+  "decoder_channels": 64,
+  "decoder_blocks": 1,
+  "watermark_length": 64,
+  "batch_size": 128,
+  "manipulation_mode": "deepfake",
+  "do_sim_swap": true,
+  "do_info_swap": false,
+  "do_uni_face": false,
+  "do_e4s": false,
+  "do_star_gan": false,
+  "do_style_mask": false,
+  "do_hyper_reenact": false,
+  "img_path": "./image_data/dataset_celeba_hq",
+  "wm_path": "./watermark_data/celeba_hq",
+  "weight_path": "./weights/128_64",
+  "epoch": 50
+}
