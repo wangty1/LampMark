@@ -59,11 +59,11 @@ We use ```main.py``` to test the model against the desired adversaries (e.g., be
 LampMark is trained against SimSwap, and tested against seven Deepfake models including SimSwap. Since we don't own the source code, we recommend download and place the model source code and weights by yourself. The models should be placed under ```model/``` folder so that de classes in ```model/deepfake_manipulations.py``` can utilize the generative models. 
 
 The source code can be found at the following links:
-* [SimSwap](https://github.com/neuralchen/SimSwap)
-* [InfoSwap](https://github.com/GGGHSL/InfoSwap-master)
-* [UniFace](https://github.com/xc-csc101/UniFace)
-* [E4S](https://github.com/e4s2022/e4s/tree/main)
-* [StarGAN](https://github.com/clovaai/stargan-v2)
-* [StyleMask](https://github.com/StelaBou/StyleMask)
-* [HyperReenact](https://github.com/StelaBou/HyperReenact)
+* [SimSwap (ACM MM 2020)](https://github.com/neuralchen/SimSwap)
+* [InfoSwap (CVPR 2021)](https://github.com/GGGHSL/InfoSwap-master)
+* [UniFace (ECCV 2022)](https://github.com/xc-csc101/UniFace)
+* [E4S (CVPR 2023)](https://github.com/e4s2022/e4s/tree/main)
+* [StarGAN (CVPR 2020)](https://github.com/clovaai/stargan-v2)
+* [StyleMask (FG 2023)](https://github.com/StelaBou/StyleMask)
+* [HyperReenact (ICCV 2023)](https://github.com/StelaBou/HyperReenact)
 
