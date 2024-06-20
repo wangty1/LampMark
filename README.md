@@ -51,18 +51,19 @@ The model is tested following the configuration files located in ```configuratio
 
 We use ```configuration/test_common.json``` to test the watermarks against all benign manipulations and derive the watermark recovery accuracies. We use ```configuration/test_deepfake.json``` to test the watermarks against Deepfake manipulations and derive the watermark recovery accuracies. 
 
-We use ```main.py``` to test the model against the desired adversary (e.g., benign manipulations, SimSwap, InfoSwap). 
+We use ```main.py``` to test the model against the desired adversaries (e.g., benign manipulations, SimSwap, InfoSwap). 
 
 
 ## Use Deepfake models for LampMark to defend against
 
-The model is trained against SimSwap, and tested against seven Deepfake models including SimSwap. Since we don't own the source code, we recommend download and place the model source code and weights by yourself. The models should be placed under ```model/``` folder so that de classes in ```model/deepfake_manipulations.py``` can utilize the generative models. 
+LampMark is trained against SimSwap, and tested against seven Deepfake models including SimSwap. Since we don't own the source code, we recommend download and place the model source code and weights by yourself. The models should be placed under ```model/``` folder so that de classes in ```model/deepfake_manipulations.py``` can utilize the generative models. 
 
 The source code can be found at the following links:
-* [SimSwap]()
-* [InfoSwap]()
-* [UniFace]()
-* [E4S]()
-* [StarGAN]()
-* [StyleMask]()
-* [HyperReenact]()
+* [SimSwap](https://github.com/neuralchen/SimSwap)
+* [InfoSwap](https://github.com/GGGHSL/InfoSwap-master)
+* [UniFace](https://github.com/xc-csc101/UniFace)
+* [E4S](https://github.com/e4s2022/e4s/tree/main)
+* [StarGAN](https://github.com/clovaai/stargan-v2)
+* [StyleMask](https://github.com/StelaBou/StyleMask)
+* [HyperReenact](https://github.com/StelaBou/HyperReenact)
+

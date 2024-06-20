@@ -27,61 +27,35 @@ norm = transforms.Normalize(
 )
 
 
-def define_result_dict(configs, data_mode, ret_type, triplet=True):
+def define_result_dict(configs, ret_type):
     result_dict = {}
     total_dict = {}
-    if data_mode == 'lm':
-        if triplet:
-            result_dict['cls_loss'] = 0.0
-            result_dict['triplet_loss'] = 0.0
-            result_dict['contrastive_loss'] = 0.0
-            result_dict['mse_pos'] = 0.0
-            result_dict['mse_fake'] = 0.0
-            result_dict['mse_neg'] = 0.0
 
-            total_dict['cls_loss'] = []
-            total_dict['triplet_loss'] = []
-            total_dict['contrastive_loss'] = []
-            total_dict['mse_pos'] = []
-            total_dict['mse_fake'] = []
-            total_dict['mse_neg'] = []
-        else:
-            result_dict['pos_loss'] = 0.0
-            result_dict['neg_loss'] = 0.0
-            total_dict['pos_loss'] = []
-            total_dict['neg_loss'] = []
-    elif data_mode == 'img':
-        pass
-    elif data_mode == 'lm-img':
-        pass
-    elif data_mode == 'wm-img':
-        result_dict['error_rate'] = 0.0
-        result_dict['psnr'] = 0.0
-        result_dict['ssim'] = 0.0
-        result_dict['g_loss'] = 0.0
-        result_dict['g_loss_enc'] = 0.0
-        result_dict['g_loss_dec'] = 0.0
-        result_dict['g_loss_dis'] = 0.0
-        result_dict['d_loss_raw'] = 0.0
-        result_dict['d_loss_wmd'] = 0.0
+    result_dict['error_rate'] = 0.0
+    result_dict['psnr'] = 0.0
+    result_dict['ssim'] = 0.0
+    result_dict['g_loss'] = 0.0
+    result_dict['g_loss_enc'] = 0.0
+    result_dict['g_loss_dec'] = 0.0
+    result_dict['g_loss_dis'] = 0.0
+    result_dict['d_loss_raw'] = 0.0
+    result_dict['d_loss_wmd'] = 0.0
 
-        total_dict['error_rate'] = []
-        total_dict['psnr'] = []
-        total_dict['ssim'] = []
-        total_dict['g_loss'] = []
-        total_dict['g_loss_enc'] = []
-        total_dict['g_loss_dec'] = []
-        total_dict['g_loss_dis'] = []
-        total_dict['d_loss_raw'] = []
-        total_dict['d_loss_wmd'] = []
+    total_dict['error_rate'] = []
+    total_dict['psnr'] = []
+    total_dict['ssim'] = []
+    total_dict['g_loss'] = []
+    total_dict['g_loss_enc'] = []
+    total_dict['g_loss_dec'] = []
+    total_dict['g_loss_dis'] = []
+    total_dict['d_loss_raw'] = []
+    total_dict['d_loss_wmd'] = []
 
-        if configs.manipulation_mode == 'deepfake':
-            result_dict['g_loss_gen'] = 0.0
-            result_dict['g_loss_id'] = 0.0
-            total_dict['g_loss_gen'] = []
-            total_dict['g_loss_id'] = []
-    else:
-        raise Exception('Unrecognized data mode. Need to be one of [lm, img, lm-img, wm_img].')
+    if configs.manipulation_mode == 'deepfake':
+        result_dict['g_loss_gen'] = 0.0
+        result_dict['g_loss_id'] = 0.0
+        total_dict['g_loss_gen'] = []
+        total_dict['g_loss_id'] = []
 
     if ret_type == 'value':
         return result_dict
@@ -96,16 +70,16 @@ def train_common():
     configs.load_json_file('./configurations/pretrain.json')
     trainer = TrainerImg(configs, device)
 
-    train_loader = make_loader(configs, data_mode='wm-img', model_mode='train', shuffle=True)
-    val_loader = make_loader(configs, data_mode='wm-img', model_mode='val', shuffle=False)
+    train_loader = make_loader(configs, model_mode='train', shuffle=True)
+    val_loader = make_loader(configs, model_mode='val', shuffle=False)
 
-    loss_record_train = define_result_dict(configs, 'wm-img', 'list')
-    loss_record_val = define_result_dict(configs, 'wm-img', 'list')
+    loss_record_train = define_result_dict(configs, 'list')
+    loss_record_val = define_result_dict(configs, 'list')
 
     print('Training on going ...')
     for epoch in range(configs.epochs):
         start_time = time.time()
-        running_result = define_result_dict(configs, 'wm-img', 'value')
+        running_result = define_result_dict(configs, 'value')
 
         # Train
         batch_count = 0
@@ -137,7 +111,7 @@ def train_common():
         # Validation
         if configs.do_validation:
             start_time = time.time()
-            running_result = define_result_dict(configs, 'wm-img', 'value')
+            running_result = define_result_dict(configs, 'value')
 
             save_iters = np.random.choice(np.arange(len(val_loader)), size=configs.save_img_nums, replace=False)
             save_imgs = None
@@ -175,16 +149,16 @@ def tune_deepfake():
     discriminator_path = configs.weight_path + '/discriminator/epoch_' + str(configs.epoch) + '.pth'
     trainer.load_discriminator(discriminator_path)
 
-    train_loader = make_loader(configs, data_mode='wm-img', model_mode='train', shuffle=True)
-    val_loader = make_loader(configs, data_mode='wm-img', model_mode='val', shuffle=False)
+    train_loader = make_loader(configs, model_mode='train', shuffle=True)
+    val_loader = make_loader(configs, model_mode='val', shuffle=False)
 
-    loss_record_train = define_result_dict(configs, 'wm-img', 'list')
-    loss_record_val = define_result_dict(configs, 'wm-img', 'list')
+    loss_record_train = define_result_dict(configs, 'list')
+    loss_record_val = define_result_dict(configs, 'list')
 
     print('Training on going ...')
     for epoch in range(configs.epochs):
         start_time = time.time()
-        running_result = define_result_dict(configs, 'wm-img', 'value')
+        running_result = define_result_dict(configs,  'value')
 
         # Train
         batch_count = 0
@@ -214,7 +188,7 @@ def tune_deepfake():
         # Validation
         if configs.do_validation:
             start_time = time.time()
-            running_result = define_result_dict(configs, 'wm-img', 'value')
+            running_result = define_result_dict(configs, 'value')
 
             save_iters = np.random.choice(np.arange(len(val_loader)), size=configs.save_img_nums, replace=False)
             save_imgs = None
@@ -259,7 +233,7 @@ def test_simswap():
     decoder_path = configs.weight_path + '/deepfake/decoder_epoch_' + str(configs.epoch) + '.pth'
     tester.load_model(encoder_path, decoder_path)
 
-    test_loader = make_loader(configs, data_mode='wm-img', model_mode='test', shuffle=False)
+    test_loader = make_loader(configs, model_mode='test', shuffle=False)
 
     running_error_rate = 0.0
     batch_count = 0
@@ -282,17 +256,40 @@ def test_infoswap():
     decoder_path = configs.weight_path + '/deepfake/decoder_epoch_' + str(configs.epoch) + '.pth'
     tester.load_model(encoder_path, decoder_path)
 
-    test_loader = make_loader(configs, data_mode='wm-img', model_mode='test', shuffle=False)
+    test_loader = make_loader(configs, model_mode='test', shuffle=False)
 
     running_error_rate = 0.0
     batch_count = 0
     for imgs, watermarks in tqdm(test_loader):
-        result = tester.test_batch_infoswap(imgs, watermarks, mode='numeric')
+        result = tester.test_batch_infoswap(imgs, watermarks)
         error_rate = result
         running_error_rate += float(error_rate)
         batch_count += 1
 
     print('Test finished for infoswap.')
+    print('Error Rate: ' + str(running_error_rate / batch_count))
+
+
+def test_uniface():
+    configs = JsonConfig()
+    configs.load_json_file('./configurations/test_deepfake.json')
+    tester = TesterImg(configs, device)
+
+    encoder_path = configs.weight_path + '/deepfake/encoder_epoch_' + str(configs.epoch) + '.pth'
+    decoder_path = configs.weight_path + '/deepfake/decoder_epoch_' + str(configs.epoch) + '.pth'
+    tester.load_model(encoder_path, decoder_path)
+
+    test_loader = make_loader(configs, model_mode='test', shuffle=False)
+
+    running_error_rate = 0.0
+    batch_count = 0
+    for imgs, watermarks in tqdm(test_loader):
+        result = tester.test_batch_uniface(imgs, watermarks)
+        error_rate = result
+        running_error_rate += float(error_rate)
+        batch_count += 1
+
+    print('Test finished for uniface.')
     print('Error Rate: ' + str(running_error_rate / batch_count))
 
 
@@ -305,12 +302,12 @@ def test_stargan():
     decoder_path = configs.weight_path + '/deepfake/decoder_epoch_' + str(configs.epoch) + '.pth'
     tester.load_model(encoder_path, decoder_path)
 
-    test_loader = make_loader(configs, data_mode='wm-img', model_mode='test', shuffle=False)
+    test_loader = make_loader(configs, model_mode='test', shuffle=False)
 
     running_error_rate = 0.0
     batch_count = 0
     for imgs, watermarks in tqdm(test_loader):
-        result = tester.test_batch_stargan(imgs, watermarks, mode='numeric')
+        result = tester.test_batch_stargan(imgs, watermarks)
         error_rate = result
         running_error_rate += float(error_rate)
         batch_count += 1
@@ -327,12 +324,12 @@ def test_stylemask():
     decoder_path = configs.weight_path + '/deepfake/decoder_epoch_' + str(configs.epoch) + '.pth'
     tester.load_model(encoder_path, decoder_path)
 
-    test_loader = make_loader(configs, data_mode='wm-img', model_mode='test', shuffle=False)
+    test_loader = make_loader(configs, model_mode='test', shuffle=False)
 
     running_error_rate = 0.0
     batch_count = 0
     for imgs, watermarks in tqdm(test_loader):
-        result = tester.test_batch_stylemask(imgs, watermarks, mode='numeric')
+        result = tester.test_batch_stylemask(imgs, watermarks)
         error_rate = result
         running_error_rate += float(error_rate)
         batch_count += 1
@@ -352,7 +349,7 @@ def test_all_common():
     # model_path = configs.weight_path + '/wm-img/model_epoch_' + str(configs.epoch) + '.pth'
     # tester.load_model_integral(model_path)
 
-    test_loader = make_loader(configs, data_mode='wm-img', model_mode='test', shuffle=False)
+    test_loader = make_loader(configs, model_mode='test', shuffle=False)
 
     manipulation_lst = ['Dropout(0.5)', 'Resize(0.5)', 'GaussianNoise()', 'SaltPepper(0.05)', 'GaussianBlur(2,3)',
                         'MedBlur(3)', 'Brightness(0.5)', 'Contrast(0.5)', 'Saturation(0.5)', 'Hue(0.1)', 'Jpeg(50)',
@@ -395,7 +392,7 @@ if __name__ == '__main__':
     # Test Deepfake.
     # test_simswap()
     # test_infoswap()
-    # TODO: write code for uniface
+    # test_uniface()
     # TODO: gather and write code for E4S
     # test_stylemask()
     # test_stargan()

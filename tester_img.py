@@ -137,12 +137,11 @@ class TesterImg:
         self.uni_face.eval()
 
         with torch.no_grad():
-            imgs, wms = imgs.to(self.device), wms.to(self)
+            imgs, wms = imgs.to(self.device), wms.to(self.device)
             imgs_wm = self.encoder(imgs, wms)
-            imgs_denorm, imgs_wm_denorm = self.denorm_imgnet(imgs), self.denorm_imgnet(imgs_wm)
-            imgs_denorm, imgs_wm_denorm = self.norm(imgs_denorm), self.norm(imgs_wm_denorm)
-            swapped_img_wm = self.uni_face([imgs_wm_denorm, imgs_denorm, self.device])
-            wms_recover = self.decoder(self.norm_imgnet(swapped_img_wm).type(torch.cuda.FloatTensor))
+            imgs_denorm, imgs_wm_denorm = imgs, imgs_wm
+            swapped_img_wm = self.uni_face([imgs_wm_denorm.half(), imgs_denorm.half()])
+            wms_recover = self.decoder(swapped_img_wm.type(torch.cuda.FloatTensor))
             # Error rate.
             error_rate = wm_error_rate(wms, wms_recover)
             return error_rate
