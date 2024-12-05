@@ -1,6 +1,6 @@
 # LampMark: Proactive Deepfake Detection via Training-Free Landmark Perceptual Watermarks
 
-Source code implementation of our paper accepted to Proceedings of the 32nd ACM International Conference on Multimedia (MM 2024).
+Source code implementation of our [paper](https://dl.acm.org/doi/10.1145/3664647.3680869) accepted to Proceedings of the 32nd ACM International Conference on Multimedia (MM 2024).
 
 ## Datasets used in this project
 
