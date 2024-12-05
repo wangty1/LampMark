@@ -1,7 +1,6 @@
 # LampMark: Proactive Deepfake Detection via Training-Free Landmark Perceptual Watermarks
 
-[//]: # (## Proceedings of the 32th ACM International Conference on Multimedia \&#40;MM 2024\&#41;)
-
+Source code implementation of our paper accepted to Proceedings of the 32nd ACM International Conference on Multimedia (MM 2024).
 
 ## Datasets used in this project
 
@@ -30,7 +29,7 @@ LampMark
             └──...
 ```
 
-In this project, the landmarks with 106 points are extracted via [Face++](https://console.faceplusplus.com/documents/13207488) under paid services. We directly provide the watermarks that we used for training, validation, and testing, which can be found in ```watermark_data\```. The watermarks are stored as ```.npy``` files such that the file names match with the image file names. 
+In this project, the landmarks with 106 points are extracted via [Face++](https://console.faceplusplus.com/documents/13207488) with paid services. We directly provide the watermarks that we used for training, validation, and testing, which can be found in ```watermark_data\```. The watermarks are stored as ```.npy``` files such that the file names match with the image file names. 
 
 
 ## Train the model from scratch
@@ -56,7 +55,7 @@ We use ```main.py``` to test the model against the desired adversaries (e.g., be
 
 ## Use Deepfake models for LampMark to defend against
 
-LampMark is trained against SimSwap, and tested against seven Deepfake models including SimSwap. Since we don't own the source code, we recommend download and place the model source code and weights by yourself. The models should be placed under ```model/``` folder so that de classes in ```model/deepfake_manipulations.py``` can utilize the generative models. 
+LampMark is trained against SimSwap, and tested against seven Deepfake models including SimSwap. Since we don't own the source code, we recommend downloading and placing the model source code and weights by yourself. The models should be placed under ```model/``` folder so that the classes in ```model/deepfake_manipulations.py``` can utilize the generative models. 
 
 The source code can be found at the following links:
 * [SimSwap (ACM MM 2020)](https://github.com/neuralchen/SimSwap)
