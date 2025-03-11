@@ -66,3 +66,16 @@ The source code can be found at the following links:
 * [StyleMask (FG 2023)](https://github.com/StelaBou/StyleMask)
 * [HyperReenact (ICCV 2023)](https://github.com/StelaBou/HyperReenact)
 
+## Citation
+If you find our work useful, please properly cite the following:
+```
+@inproceedings{LampMark2024Wang,
+author = {Wang, Tianyi and Huang, Mengxiao and Cheng, Harry and Zhang, Xiao and Shen, Zhiqi},
+title = {LampMark: Proactive Deepfake Detection via Training-Free Landmark Perceptual Watermarks},
+year = {2024},
+isbn = {9798400706868},
+doi = {10.1145/3664647.3680869},
+booktitle = {Proceedings of the 32nd ACM International Conference on Multimedia},
+pages = {10515–10524}
+}
+```
