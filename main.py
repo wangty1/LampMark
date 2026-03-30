@@ -383,17 +383,3 @@ if __name__ == '__main__':
     # Pre-train using benign manipulations.
     train_common()
 
-    # Fine-tune with Deepfake manipulations.
-    # tune_deepfake()
-
-    # Test benign.
-    # test_all_common()
-
-    # Test Deepfake.
-    # test_simswap()
-    # test_infoswap()
-    # test_uniface()
-    # TODO: gather and write code for E4S
-    # test_stylemask()
-    # test_stargan()
-    # TODO: gather and write code for hyper-reenactment
